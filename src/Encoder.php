@@ -28,7 +28,8 @@ class Encoder
 
     public function __construct()
     {
-        for ($i = 0; $i < strlen(self::ALPHABET); $i++) {
+        $alphabetLength = strlen(self::ALPHABET);
+        for ($i = 0; $i < $alphabetLength; ++$i) {
             $this->decodeMap[self::ALPHABET[$i]] = $i;
             $this->decodeMap[strtolower(self::ALPHABET[$i])] = $i;
             $this->encodeMap[$i] = self::ALPHABET[$i];
@@ -42,7 +43,7 @@ class Encoder
      * method will throw an exception.
      *
      * @param int[] $input
-     * @return string
+     * @return string Base24 encoded value.
      * @throws \InvalidArgumentException
      */
     public function encode(array $input): string
@@ -79,13 +80,13 @@ class Encoder
     }
 
     /**
-     * Convert the given array of bytes into a Base 24-encoded string.
+     * Convert the given binary string into a Base 24-encoded string.
      *
-     * The length of the input array must be a multiple of 4, otherwise this
+     * The length of the binary input string must be a multiple of 4, otherwise this
      * method will throw an exception.
      *
-     * @param string $input
-     * @return string
+     * @param string $input The binary string.
+     * @return string Base24 encoded value.
      * @throws \InvalidArgumentException
      */
     public function encodeBinaryString(string $input): string
@@ -101,7 +102,7 @@ class Encoder
      * The length of the input string must be a multiple of 7, otherwise this
      * method will throw an exception.
      *
-     * @param string $input
+     * @param string $input Base24 encoded value.
      * @return int[]
      * @throws \InvalidArgumentException
      */
@@ -144,13 +145,13 @@ class Encoder
     }
 
     /**
-     * Convert the given Base 24-encoded string into an array of bytes.
+     * Convert the given Base 24-encoded string into a binary string.
      *
      * The length of the input string must be a multiple of 7, otherwise this
      * method will throw an exception.
      *
-     * @param string $input
-     * @return string The binary string
+     * @param string $input Base24 encoded value.
+     * @return string The binary string.
      * @throws \InvalidArgumentException
      */
     public function decodeBinaryString(string $input): string
