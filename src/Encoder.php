@@ -79,6 +79,23 @@ class Encoder
     }
 
     /**
+     * Convert the given array of bytes into a Base 24-encoded string.
+     *
+     * The length of the input array must be a multiple of 4, otherwise this
+     * method will throw an exception.
+     *
+     * @param string $input
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    public function encodeBinaryString(string $input): string
+    {
+        $byteBuffer = unpack('C*', $input); // Caution: returns 1-based indexes
+        $byteBuffer = array_values($byteBuffer); // Convert to 0-based indexes
+        return $this->encode($byteBuffer);
+    }
+
+    /**
      * Convert the given Base 24-encoded string into an array of bytes.
      *
      * The length of the input string must be a multiple of 7, otherwise this
@@ -124,5 +141,21 @@ class Encoder
         }
 
         return $bytes;
+    }
+
+    /**
+     * Convert the given Base 24-encoded string into an array of bytes.
+     *
+     * The length of the input string must be a multiple of 7, otherwise this
+     * method will throw an exception.
+     *
+     * @param string $input
+     * @return string The binary string
+     * @throws \InvalidArgumentException
+     */
+    public function decodeBinaryString(string $input): string
+    {
+        $decoded = $this->decode($input);
+        return pack('C*', ...$decoded);
     }
 }
