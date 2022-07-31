@@ -23,8 +23,8 @@ class Encoder
      */
     const ALPHABET_LENGTH = 24;
 
-    private $encodeMap = [];
-    private $decodeMap = [];
+    private array $encodeMap = [];
+    private array $decodeMap = [];
 
     public function __construct()
     {
